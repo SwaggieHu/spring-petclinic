@@ -11,7 +11,7 @@ git --version'''
 
     stage('Build') {
       steps {
-        sh 'sudo ./mvnw package'
+        sh './mvnw package'
       }
     }
 
