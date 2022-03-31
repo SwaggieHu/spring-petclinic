@@ -11,7 +11,7 @@ git --version'''
           }
         }
 
-        stage('') {
+        stage('sonar') {
           steps {
             withSonarQubeEnv(installationName: 'sonar', envOnly: true)
           }
@@ -23,12 +23,6 @@ git --version'''
     stage('Build') {
       steps {
         sh './mvnw package'
-      }
-    }
-
-    stage('sonar') {
-      steps {
-        waitForQualityGate true
       }
     }
 
