@@ -10,8 +10,19 @@ git --version'''
     }
 
     stage('Build') {
-      steps {
-        sh './mvnw package'
+      parallel {
+        stage('Build') {
+          steps {
+            sh './mvnw package'
+          }
+        }
+
+        stage('Sonar') {
+          steps {
+            waitForQualityGate(abortPipeline: true)
+          }
+        }
+
       }
     }
 
