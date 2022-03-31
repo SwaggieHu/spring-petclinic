@@ -2,27 +2,27 @@ pipeline {
   agent any
   stages {
     stage('Environment Check') {
-      steps {
-        sh '''mvn -version
+      parallel {
+        stage('Environment Check') {
+          steps {
+            sh '''mvn -version
 java -version
 git --version'''
+          }
+        }
+
+        stage('') {
+          steps {
+            withSonarQubeEnv(installationName: 'sonar', envOnly: true)
+          }
+        }
+
       }
     }
 
     stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            sh './mvnw package'
-          }
-        }
-
-        stage('sonar prepare') {
-          steps {
-            withSonarQubeEnv 'sonar'
-          }
-        }
-
+      steps {
+        sh './mvnw package'
       }
     }
 
