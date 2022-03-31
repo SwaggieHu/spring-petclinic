@@ -17,18 +17,18 @@ git --version'''
           }
         }
 
-        stage('Sonar') {
+        stage('sonar prepare') {
           steps {
-            waitForQualityGate(abortPipeline: true)
+            withSonarQubeEnv 'sonar'
           }
         }
 
       }
     }
 
-    stage('Run') {
+    stage('sonar') {
       steps {
-        sh 'java -jar target/*.jar --server.port=9090'
+        waitForQualityGate true
       }
     }
 
