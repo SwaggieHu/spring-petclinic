@@ -15,9 +15,9 @@ git --version'''
       }
     }
 
-    stage('Out') {
+    stage('Run') {
       steps {
-        echo 'Success'
+        sh 'java -jar target/*.jar --server.port=9090'
       }
     }
 
