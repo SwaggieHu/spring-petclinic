@@ -15,10 +15,9 @@ git --version'''
       }
     }
 
-    stage('sonar') {
+    stage('run') {
       steps {
-        waitForQualityGate true
-        withSonarQubeEnv(installationName: 'sonar', envOnly: true)
+        sh 'java -jar target/*.jar --server.port=9090'
       }
     }
 
