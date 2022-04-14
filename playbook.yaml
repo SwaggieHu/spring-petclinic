@@ -20,6 +20,6 @@
      dest: ~/
     when: file_name.stdout != ""
 
-  - name: start wechat-api
+  - name: start webserver
     shell: "nohup java -jar ~/*.jar &"
     tags: start
